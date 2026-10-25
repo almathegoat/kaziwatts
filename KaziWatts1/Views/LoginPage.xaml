@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="KaziWatts.Views.LoginPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Connexion" BackRoute="//splash" Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <Grid Margin="0,35,0,0">
+                    <ctl:BrandHeader HorizontalOptions="Start" />
+                    <ctl:ThemeToggle HorizontalOptions="End" VerticalOptions="Center" />
+                </Grid>
+
+                <Label Text="Bon retour !" FontFamily="InterBold" FontSize="31.3" Margin="0,20,0,0" />
+
+                <Label Text="Connectez-vous à votre compte pour reprendre la main."
+                       Style="{StaticResource Muted}" FontSize="13.9" LineHeight="1.47" Margin="0,19,0,0" />
+
+                <Label Text="Email ou numéro de téléphone" FontFamily="InterSemiBold" FontSize="11.9" Margin="0,26,0,0" />
+                <ctl:TextField x:Name="IdField" Placeholder="exemple@email.com" IconName="mail"
+                               KeyboardType="Email" Margin="0,8,0,0" />
+
+                <Label Text="Mot de passe" FontFamily="InterSemiBold" FontSize="11.9" Margin="0,16,0,0" />
+                <ctl:TextField x:Name="PwdField" Placeholder="••••••••••" IsPassword="True"
+                               IconName="eye" RevealedIconName="eye-off" Margin="0,8,0,0" />
+
+                <!-- Se souvenir de moi / Mot de passe oublié -->
+                <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,17,0,0" HeightRequest="14">
+                    <ctl:AppCheckBox x:Name="RememberCheck" IsChecked="True" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="Se souvenir de moi" Style="{StaticResource Muted}" FontSize="10.8"
+                           VerticalOptions="Center" Margin="8,0,0,0" />
+                    <Label Grid.Column="2" Text="Mot de passe oublié ?" FontFamily="InterBold" FontSize="10.8"
+                           VerticalOptions="Center"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnForgot" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <Label x:Name="ErrorLabel" IsVisible="False" FontSize="12" Margin="0,10,0,0"
+                       TextColor="{StaticResource Danger}" />
+
+                <ctl:ArrowButton x:Name="LoginButton" Text="Se connecter" IconName="arrow"
+                                 Margin="0,17,0,0" Clicked="OnLoginClicked" />
+
+                <Label Text="OU CONTINUER AVEC" Style="{StaticResource Muted}" FontSize="9.8"
+                       HorizontalOptions="Center" Margin="0,16,0,0" />
+
+                <!-- Google / Apple : deux cartes de 165 de large, 12 d'écart -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,16,0,0">
+                    <Border HeightRequest="49" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="G" FontFamily="InterBold" FontSize="19.5" VerticalOptions="Center" />
+                            <Label Text="Google" FontFamily="InterSemiBold" FontSize="12.8" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSocialTapped" CommandParameter="Google" />
+                        </Border.GestureRecognizers>
+                    </Border>
+
+                    <Border Grid.Column="1" HeightRequest="49" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                            <shapes:Ellipse WidthRequest="14.5" HeightRequest="14.5" VerticalOptions="Center"
+                                            Fill="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                            <Label Text="Apple" FontFamily="InterSemiBold" FontSize="12.8" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSocialTapped" CommandParameter="Apple" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Label Grid.Row="2" Text="Pas encore de compte ? S’inscrire" FontFamily="InterRegular" FontSize="12.8"
+               HorizontalOptions="Center" Margin="0,8,0,28"
+               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnSignUpTapped" />
+            </Label.GestureRecognizers>
+        </Label>
+    </Grid>
+</ContentPage>

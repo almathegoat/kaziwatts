@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.SignUpPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Inscription" Subtitle="Votre énergie, votre communauté." Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <Label Text="Créez votre compte" FontFamily="InterBold" FontSize="28" Margin="0,24,0,0" />
+
+                <Label Text="Rejoignez KaziWatts et gérez votre colocation en toute simplicité."
+                       Style="{StaticResource Muted}" FontSize="13.9" LineHeight="1.43" Margin="0,11,0,0" />
+
+                <Label Text="Nom complet" FontFamily="InterSemiBold" FontSize="11.9" Margin="0,17,0,0" />
+                <ctl:TextField x:Name="NameField" Placeholder="Amina Ngambi" IconName="user" Margin="0,7.5,0,0" />
+
+                <Label Text="Email ou téléphone" FontFamily="InterSemiBold" FontSize="11.9" Margin="0,16,0,0" />
+                <ctl:TextField x:Name="IdField" Placeholder="amina.ngambi@gmail.com" IconName="mail"
+                               KeyboardType="Email" Margin="0,7.5,0,0" />
+
+                <Label Text="Mot de passe" FontFamily="InterSemiBold" FontSize="11.9" Margin="0,16,0,0" />
+                <ctl:TextField x:Name="PwdField" Placeholder="••••••••••" IsPassword="True"
+                               IconName="eye-off" RevealedIconName="eye" Margin="0,7.5,0,0" />
+
+                <Label Text="Confirmer le mot de passe" FontFamily="InterSemiBold" FontSize="11.9" Margin="0,16,0,0" />
+                <ctl:TextField x:Name="ConfirmField" Placeholder="••••••••••" IsPassword="True"
+                               IconName="eye-off" RevealedIconName="eye" Margin="0,7.5,0,0" />
+
+                <!-- Conditions : case alignée sur la 1re ligne du texte (interligne 19,4) -->
+                <Grid ColumnDefinitions="Auto,*" Margin="0,12,0,0">
+                    <ctl:AppCheckBox x:Name="TermsCheck" IsChecked="True" VerticalOptions="Start" Margin="0,5.5,0,0" />
+                    <Label Grid.Column="1" Text="J’accepte les Conditions d’utilisation et la Politique de confidentialité."
+                           Style="{StaticResource Muted}" FontSize="10.9" LineHeight="1.78" Margin="11.5,0,0,0" />
+                </Grid>
+
+                <Label x:Name="ErrorLabel" IsVisible="False" FontSize="12" Margin="0,10,0,0"
+                       TextColor="{StaticResource Danger}" />
+
+                <ctl:ArrowButton Text="S’inscrire" IconName="arrow" Margin="0,15,0,0" Clicked="OnSignUp" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Label Grid.Row="2" Text="Déjà un compte ? Se connecter" FontFamily="InterRegular" FontSize="12.8"
+               HorizontalOptions="Center" Margin="0,8,0,28"
+               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLogin" />
+            </Label.GestureRecognizers>
+        </Label>
+    </Grid>
+</ContentPage>

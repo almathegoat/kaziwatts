@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.SplashPage"
+             Shell.NavBarIsVisible="False"
+             Padding="0">
+
+    <Grid RowDefinitions="*,Auto" RowSpacing="0">
+
+        <!-- ===== Haut : photo plein cadre + dégradé bleu + textes blancs ===== -->
+        <Grid Grid.Row="0">
+            <Image Source="splash_building.jpg" Aspect="AspectFill" />
+
+            <!-- Dégradé mesuré sur la maquette (identique en clair et en sombre) -->
+            <Grid>
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="{StaticResource PhotoOverlayTop}"  Offset="0.0" />
+                        <GradientStop Color="{StaticResource PhotoOverlay20}"   Offset="0.4" />
+                        <GradientStop Color="{StaticResource PhotoOverlay30}"   Offset="0.6" />
+                        <GradientStop Color="{StaticResource PhotoOverlay60}"   Offset="0.75" />
+                        <GradientStop Color="{StaticResource PhotoOverlay75}"   Offset="0.82" />
+                        <GradientStop Color="#E00F2F86"                          Offset="0.93" />
+                        <GradientStop Color="#5AA0F2"                            Offset="1.0" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+            </Grid>
+
+            <ctl:ThemeToggle OnPhoto="True" HorizontalOptions="End" VerticalOptions="Start" Margin="0,20,20,0" />
+
+            <VerticalStackLayout VerticalOptions="End" Margin="24,0,24,64" Spacing="14">
+                <Label Text="L’ÉNERGIE SE PARTAGE." FontFamily="InterBold" FontSize="10.8"
+                       CharacterSpacing="1.6" TextColor="White" Margin="0,0,0,34" />
+                <Label FontFamily="InterSemiBold" FontSize="38" LineHeight="1.09" TextColor="White">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Un même toit.&#10;Une énergie " />
+                            <Span Text="juste." TextColor="#3FA3FF" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Text="Ensemble, pour une conso plus juste." FontFamily="InterRegular"
+                       FontSize="13.8" TextColor="{StaticResource PhotoSubtitle}" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- ===== Bas : panneau de marque ===== -->
+        <VerticalStackLayout Grid.Row="1" Spacing="0" Padding="24,24,24,56"
+                             BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
+
+            <ctl:BrandHeader HorizontalOptions="Center" />
+
+            <Label Text="Suivez vos kWh, partagez vos dépenses et gardez l’équilibre entre colocataires."
+                   Style="{StaticResource Muted}" FontSize="13.9" LineHeight="1.43" Margin="0,18,0,0"
+                   HorizontalTextAlignment="Center" />
+
+            <ctl:ArrowButton Text="Commencer" IconName="arrow" Margin="0,18,0,0" Clicked="OnStart" />
+
+            <Label Text="Déjà un compte ? Se connecter" FontFamily="InterRegular" FontSize="12.9"
+                   HorizontalOptions="Center" Margin="0,18,0,0"
+                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLogin" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Label Text="ÉNERGIE · PARTAGE · ÉCONOMIE" Style="{StaticResource Muted}" FontSize="10.5"
+                   HorizontalOptions="Center" Margin="0,16,0,0" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
