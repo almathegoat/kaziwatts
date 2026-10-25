@@ -1,0 +1,10 @@
+bin/
+obj/
+.vs/
+*.user
+backend/.secret
+backend/*.db
+backend/uploads/
+__pycache__/
+.venv/
+venv/
