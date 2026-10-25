@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.ColocationPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Votre colocation" Subtitle="Un foyer, des comptes bien partagés." Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:StepBar Step="1" Margin="0,20.5,0,0" />
+
+                <Label Text="Rejoindre ou créer une colocation" FontFamily="InterBold" FontSize="28"
+                       LineHeight="1.43" Margin="0,16.5,0,0" />
+
+                <!-- Carte sélectionnée : Rejoindre une colocation -->
+                <Border HeightRequest="76" Padding="17" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        Margin="0,18,0,0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <Grid ColumnDefinitions="40,*,Auto" ColumnSpacing="12" VerticalOptions="Center">
+                        <Border WidthRequest="40" HeightRequest="40" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 12"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                            <ctl:Icon Name="users" Size="22" Thickness="1.5"
+                                      Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                            <Label Text="Rejoindre une colocation" FontFamily="InterSemiBold" FontSize="13" />
+                            <Label Text="Avec un code à 6 caractères" Style="{StaticResource Muted}" FontSize="11" />
+                        </VerticalStackLayout>
+                        <ctl:Icon Grid.Column="2" Name="check" Size="14" Thickness="2"
+                                  Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                    </Grid>
+                </Border>
+
+                <Label x:Name="CodeTitle" Text="Mon code de partage" FontFamily="InterSemiBold" FontSize="12" Margin="0,16,0,0" />
+                <ctl:TextField x:Name="CodeField" IsReadOnly="True" IconName="copy" Margin="0,7.5,0,0"
+                               IconTapped="OnCopyCode" />
+
+                <!-- Carte : Créer une nouvelle colocation -->
+                <Border HeightRequest="76" Padding="17" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        Margin="0,16,0,0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <Grid ColumnDefinitions="40,*,Auto" ColumnSpacing="12" VerticalOptions="Center">
+                        <Border WidthRequest="40" HeightRequest="40" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 12"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                            <ctl:Icon Name="plus" Size="22" Thickness="1.5"
+                                      Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                            <Label Text="Créer une nouvelle colocation" FontFamily="InterSemiBold" FontSize="13" />
+                            <Label Text="Nom, quartier, nombre d’occupants…" Style="{StaticResource Muted}" FontSize="11" />
+                        </VerticalStackLayout>
+                        <ctl:Icon Grid.Column="2" Name="chevron-right" Size="12" Thickness="2" Margin="0,0,-3.5,0"
+                                  Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                    </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCreateTapped" />
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Bandeau d'information -->
+                <Border Padding="13" StrokeThickness="0" StrokeShape="RoundRectangle 14" Margin="0,16,0,0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="9">
+                        <ctl:Icon Name="link" Size="20" Thickness="1.5" VerticalOptions="Start"
+                                  Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        <Label Grid.Column="1" Text="Partagez ce code avec vos colocataires. Chacun garde son compte personnel."
+                               FontFamily="InterRegular" FontSize="12" LineHeight="1.5"
+                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                    </Grid>
+                </Border>
+
+                <!-- Partager mon code -->
+                <Border HeightRequest="54" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 14" Margin="0,16,0,0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="Partager mon code" FontFamily="InterSemiBold" FontSize="14" VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        <ctl:Icon Name="share" Size="19" Thickness="1.5" VerticalOptions="Center"
+                                  Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                    </HorizontalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnShareCode" />
+                    </Border.GestureRecognizers>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Padding="24,8,24,28" Spacing="0">
+            <ctl:ArrowButton x:Name="MainButton" Text="Rejoindre la colocation" IconName="arrow" Clicked="OnContinue" />
+            <Label Text="Retrouvez le code dans les paramètres du foyer." Style="{StaticResource Muted}" FontSize="11"
+                   HorizontalOptions="Center" Margin="0,16,0,0" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

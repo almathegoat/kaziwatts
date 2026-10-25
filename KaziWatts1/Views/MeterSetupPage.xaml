@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.MeterSetupPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Configuration compteur" Subtitle="Associez votre compteur au foyer." Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:StepBar Step="2" Margin="0,20.5,0,0" />
+
+                <Label Text="Type de compteur" FontFamily="InterSemiBold" FontSize="13" Margin="0,18,0,0" />
+                <ctl:SegmentedControl x:Name="TypeSegments" Items="⚡ Prépayé|Postpayé" SelectedIndex="0"
+                                      Margin="0,18,0,0" SelectedChanged="OnTypeChanged" />
+
+                <Label Text="Numéro de compteur" FontFamily="InterSemiBold" FontSize="12" Margin="0,16,0,0" />
+                <ctl:TextField x:Name="MeterField" Placeholder="KZW-2026-001" IconName="scan-line" Margin="0,7.5,0,0" />
+
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,15,0,0">
+                    <VerticalStackLayout Spacing="7.5">
+                        <Label Text="Index initial (kWh)" FontFamily="InterSemiBold" FontSize="12" />
+                        <ctl:TextField x:Name="IndexField" Placeholder="1234" KeyboardType="Numeric" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="1" Spacing="7.5">
+                        <Label Text="Tarif actuel (FCFA/kWh)" FontFamily="InterSemiBold" FontSize="12" />
+                        <ctl:TextField x:Name="TariffField" Placeholder="150" KeyboardType="Numeric" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <!-- Carte « Clé de répartition » -->
+                <Border Margin="0,16,0,0" Padding="17" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <VerticalStackLayout Spacing="12.5">
+                        <Grid ColumnDefinitions="40,*" ColumnSpacing="12">
+                            <Border WidthRequest="40" HeightRequest="40" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                                <ctl:Icon Name="pie" Size="22" Thickness="1.5"
+                                          Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                <Label Text="Clé de répartition" FontFamily="InterSemiBold" FontSize="13" />
+                                <Label Text="À ajuster ensemble à tout moment" Style="{StaticResource Muted}" FontSize="11" />
+                            </VerticalStackLayout>
+                        </Grid>
+                        <ctl:SegmentedControl x:Name="KeySegments" Items="Parts égales|Pondérée (%)" SelectedIndex="0" ControlHeight="42" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <ctl:InfoBanner x:Name="TypeInfo" IconName="zap" Margin="0,16,0,0"
+                                Text="Prépayé : rechargez par code et suivez votre crédit restant en temps réel." />
+
+                <Label x:Name="ErrorLabel" IsVisible="False" FontSize="12" Margin="0,10,0,0" TextColor="{StaticResource Danger}" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Padding="24,8,24,28" Spacing="0">
+            <ctl:ArrowButton Text="Suivant" IconName="arrow" Clicked="OnNext" />
+            <Label Text="Vos informations restent modifiables." Style="{StaticResource Muted}" FontSize="11"
+                   HorizontalOptions="Center" Margin="0,16,0,0" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
