@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.ProfilePage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Profil / Paramètres" BackRoute="//home" Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <!-- Avatar 64 + nom -->
+                <ctl:Avatar x:Name="ProfileAvatar" Initials="" Diameter="64" HorizontalOptions="Center" Margin="0,11,0,0" />
+                <Label x:Name="NameLabel" Text="" FontFamily="InterBold" FontSize="20" HorizontalTextAlignment="Center" Margin="0,6,0,0" />
+                <Label x:Name="SubLabel" Text="" Style="{StaticResource Muted}" FontSize="11"
+                       HorizontalTextAlignment="Center" Margin="0,7.5,0,0" />
+
+                <!-- Liste : 4 lignes de 44 séparées par un filet -->
+                <Border Margin="0,16,0,0" Padding="0,7.5" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <VerticalStackLayout Spacing="0">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Padding="15,0,16,0" HeightRequest="43">
+                            <ctl:Icon Name="users" Size="20" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Grid.Column="1" Text="Mes colocataires" FontFamily="InterRegular" FontSize="12" VerticalOptions="Center" />
+                            <ctl:Icon Grid.Column="2" Name="chevron-right" Size="12" Thickness="2" Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                            <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnRoommates" /></Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Margin="16,0" Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Padding="15,0,16,0" HeightRequest="43">
+                            <ctl:Icon Name="pie" Size="20" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Grid.Column="1" Text="Mode de répartition" FontFamily="InterRegular" FontSize="12" VerticalOptions="Center" />
+                            <ctl:Icon Grid.Column="2" Name="chevron-right" Size="12" Thickness="2" Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                            <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnSplit" /></Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Margin="16,0" Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Padding="15,0,16,0" HeightRequest="43">
+                            <ctl:Icon Name="gauge" Size="20" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Grid.Column="1" Text="Configuration du compteur" FontFamily="InterRegular" FontSize="12" VerticalOptions="Center" />
+                            <ctl:Icon Grid.Column="2" Name="chevron-right" Size="12" Thickness="2" Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                            <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnMeter" /></Grid.GestureRecognizers>
+                        </Grid>
+                        <BoxView HeightRequest="1" Margin="16,0" Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Padding="15,0,16,0" HeightRequest="43">
+                            <ctl:Icon Name="bell" Size="20" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Grid.Column="1" Text="Rappels" FontFamily="InterRegular" FontSize="12" VerticalOptions="Center" />
+                            <ctl:Icon Grid.Column="2" Name="chevron-right" Size="12" Thickness="2" Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                            <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnReminders" /></Grid.GestureRecognizers>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Thème -->
+                <Border Margin="0,16,0,0" Padding="17,14,17,15" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <VerticalStackLayout Spacing="11">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="9" HeightRequest="20">
+                            <ctl:Icon x:Name="ThemeIcon" Name="sun" Size="20" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Grid.Column="1" Text="Thème" FontFamily="InterSemiBold" FontSize="13" VerticalOptions="Center" />
+                            <Label x:Name="ThemeValue" Grid.Column="2" Text="Clair" Style="{StaticResource Muted}" FontSize="12.5" VerticalOptions="Center" />
+                        </Grid>
+                        <ctl:SegmentedControl x:Name="ThemeSegments" Items="Clair|Sombre" SelectedIndex="0" SelectedChanged="OnThemeChanged" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Aide / À propos -->
+                <Grid ColumnDefinitions="40,*,Auto" ColumnSpacing="12" Margin="0,16,0,0" HeightRequest="40">
+                    <Border WidthRequest="40" HeightRequest="40" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 12"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                        <ctl:Icon Name="help" Size="22" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                    </Border>
+                    <Label Grid.Column="1" Text="Aide &amp; support" FontFamily="InterSemiBold" FontSize="13" VerticalOptions="Center" />
+                    <ctl:Icon Grid.Column="2" Name="chevron-right" Size="12" Thickness="2" Margin="0,0,3,0" Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                    <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnHelp" /></Grid.GestureRecognizers>
+                </Grid>
+                <Grid ColumnDefinitions="40,*,Auto" ColumnSpacing="12" Margin="0,14,0,0" HeightRequest="40">
+                    <Border WidthRequest="40" HeightRequest="40" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 12"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                        <ctl:Icon Name="info" Size="22" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                    </Border>
+                    <Label Grid.Column="1" Text="À propos de KaziWatts" FontFamily="InterSemiBold" FontSize="13" VerticalOptions="Center" />
+                    <ctl:Icon Grid.Column="2" Name="chevron-right" Size="12" Thickness="2" Margin="0,0,3,0" Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                    <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnAbout" /></Grid.GestureRecognizers>
+                </Grid>
+
+                <!-- Se déconnecter -->
+                <Border HeightRequest="46" Margin="0,16,0,0" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 14"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource DangerSoftLight}, Dark={StaticResource DangerSoftDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource DangerStrokeLight}, Dark={StaticResource DangerStrokeDark}}">
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ctl:Icon Name="log-out" Size="20" Thickness="1.5" Color="{StaticResource Danger}" VerticalOptions="Center" />
+                        <Label Text="Se déconnecter" FontFamily="InterRegular" FontSize="13" TextColor="{StaticResource Danger}" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnLogout" /></Border.GestureRecognizers>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ctl:BottomNav Grid.Row="2" Active="profile" />
+    </Grid>
+</ContentPage>

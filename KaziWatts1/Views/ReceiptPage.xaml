@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.ReceiptPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader x:Name="Header" Title="Justificatif" Subtitle="" Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:SegmentedControl x:Name="Tabs" Items="Paiement|Historique" SelectedIndex="0"
+                                      Margin="0,20.5,0,0" SelectedChanged="OnTabChanged" />
+
+                <Border WidthRequest="72" HeightRequest="72" Margin="0,28,0,0" Padding="0" StrokeThickness="0" StrokeShape="Ellipse"
+                        HorizontalOptions="Center"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SuccessSoftLight}, Dark={StaticResource SuccessSoftDark}}">
+                    <ctl:Icon Name="check" Size="46" Thickness="1.3"
+                              Color="{AppThemeBinding Light={StaticResource Success}, Dark={StaticResource SuccessDark}}" />
+                </Border>
+
+                <Label x:Name="Headline" Text="" FontFamily="InterSemiBold" FontSize="10.7" HorizontalTextAlignment="Center"
+                       Margin="0,11.4,0,0"
+                       TextColor="{AppThemeBinding Light={StaticResource Success}, Dark={StaticResource SuccessDark}}" />
+
+                <HorizontalStackLayout Spacing="11" HorizontalOptions="Center" Margin="0,12,0,0">
+                    <Label x:Name="AmountLabel" Text="–" FontFamily="InterRegular" FontSize="40" VerticalOptions="Center" />
+                    <Label Text="FCFA" Style="{StaticResource Muted}" FontSize="16" VerticalOptions="End" Margin="0,0,0,5.3" />
+                </HorizontalStackLayout>
+
+                <Label x:Name="WhoLabel" Text="" Style="{StaticResource Muted}" FontSize="11"
+                       HorizontalTextAlignment="Center" Margin="0,9,0,0" />
+
+                <!-- Carte « Détails du paiement » -->
+                <Border HeightRequest="217" Margin="0,26,0,0" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <AbsoluteLayout>
+                        <Label Text="Détails du paiement" FontFamily="InterSemiBold" FontSize="13" AbsoluteLayout.LayoutBounds="16,17.8,AutoSize,AutoSize" />
+                        <BoxView HeightRequest="1" AbsoluteLayout.LayoutBounds="16,48,306,1"
+                                 Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                        <Grid ColumnDefinitions="*,Auto" AbsoluteLayout.LayoutBounds="16,56.0,306,28.1">
+                            <Label Text="Référence" FontFamily="InterSemiBold" FontSize="13" VerticalOptions="Center" />
+                            <Label x:Name="RefLabel" Grid.Column="1" Text="" FontFamily="InterRegular" FontSize="13" VerticalOptions="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto" AbsoluteLayout.LayoutBounds="16,84.1,306,28.1">
+                            <Label Text="Mode" FontFamily="InterSemiBold" FontSize="13" VerticalOptions="Center" />
+                            <Label x:Name="ModeLabel" Grid.Column="1" Text="" FontFamily="InterRegular" FontSize="13" VerticalOptions="Center" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto" AbsoluteLayout.LayoutBounds="16,112.2,306,28.1">
+                            <Label Text="Statut" FontFamily="InterSemiBold" FontSize="13" VerticalOptions="Center" />
+                            <Label x:Name="StatusValue" Grid.Column="1" Text="" FontFamily="InterRegular" FontSize="13" VerticalOptions="Center" TextColor="{AppThemeBinding Light={StaticResource Success}, Dark={StaticResource SuccessDark}}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto" AbsoluteLayout.LayoutBounds="16,140.3,306,28.1">
+                            <Label Text="Colocation" FontFamily="InterSemiBold" FontSize="13" VerticalOptions="Center" />
+                            <Label x:Name="ColocLabel" Grid.Column="1" Text="" FontFamily="InterRegular" FontSize="13" VerticalOptions="Center" />
+                        </Grid>
+                        <BoxView HeightRequest="1" AbsoluteLayout.LayoutBounds="16,173,306,1"
+                                 Color="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+                        <Label x:Name="FooterLabel" Text="Reçu KaziWatts" Style="{StaticResource Muted}" FontSize="10"
+                               AbsoluteLayout.LayoutBounds="16,185.5,AutoSize,AutoSize" />
+                    </AbsoluteLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Padding="24,8,24,28" Spacing="16">
+            <VerticalStackLayout x:Name="DecisionBox" IsVisible="False" Spacing="12">
+                <ctl:ArrowButton Text="Confirmer le paiement" IconName="check" Clicked="OnConfirm" />
+                <ctl:SoftButton Text="Refuser" IconName="" Clicked="OnReject" />
+            </VerticalStackLayout>
+            <ctl:SoftButton x:Name="CancelBtn" Text="Annuler ce paiement" IconName="" IsVisible="False" Clicked="OnCancel" />
+            <ctl:ArrowButton Text="Télécharger le justificatif" IconName="download" Clicked="OnDownload" />
+            <ctl:SoftButton Text="Partager" IconName="share" Clicked="OnShare" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

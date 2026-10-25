@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.RemindersPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Rappels &amp; alertes" Subtitle="Ne laissez aucune échéance vous surprendre." Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <Grid ColumnDefinitions="*,Auto" HeightRequest="29" Margin="0,20.5,0,0">
+                    <Label Text="Rappels actifs" FontFamily="InterBold" FontSize="14.5" VerticalOptions="Center" />
+                    <Border Grid.Column="1" WidthRequest="29" HeightRequest="29" Padding="0" StrokeThickness="0" StrokeShape="Ellipse"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                        <Label x:Name="CountBadge" Text="0" FontFamily="InterBold" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                    </Border>
+                </Grid>
+
+                <VerticalStackLayout x:Name="ItemsHost" Margin="0,2,0,0" Spacing="0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border HeightRequest="132" Margin="0,14,0,0" Padding="17" Opacity="{Binding RowOpacity}" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                                <Grid ColumnDefinitions="3,*" ColumnSpacing="13">
+                                    <Border Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 2" BackgroundColor="{Binding TagColor}" />
+                                    <Grid Grid.Column="1">
+                                        <Label Text="{Binding Tag}" FontFamily="InterBold" FontSize="10.5" VerticalOptions="Start" HorizontalOptions="Start" TextColor="{Binding TagColor}" />
+                                        <Label Text="{Binding RightText}" Style="{StaticResource Muted}" FontSize="9" VerticalOptions="Start" HorizontalOptions="End" Margin="0,2,0,0" />
+                                        <VerticalStackLayout VerticalOptions="Start" Margin="0,18.3,0,0" Spacing="0">
+                                            <Label Text="{Binding Title}" FontFamily="InterRegular" FontSize="18" MaxLines="1" LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding Detail}" Style="{StaticResource Muted}" FontSize="13" Margin="0,6.7,0,0" MaxLines="1" LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding LinkText}" FontFamily="InterSemiBold" FontSize="12" Margin="0,8.7,0,0"
+                                                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}">
+                                                <Label.GestureRecognizers><TapGestureRecognizer Tapped="OnLink" /></Label.GestureRecognizers>
+                                            </Label>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <Label x:Name="EmptyLabel" IsVisible="False" Text="Aucune alerte pour le moment." Style="{StaticResource Muted}" FontSize="12.5"
+                       HorizontalTextAlignment="Center" Margin="0,24,0,0" />
+
+                <ctl:InfoBanner IconName="bell" Margin="0,16,0,0"
+                                Text="Les colocataires concernés reçoivent une notification avant l’échéance." />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="0">
+            <ctl:ArrowButton Text="Ajouter un rappel" IconName="plus" Margin="24,8,24,9" Clicked="OnAdd" />
+            <ctl:BottomNav Active="home" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
