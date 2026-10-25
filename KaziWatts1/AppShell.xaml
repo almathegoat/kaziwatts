@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="KaziWatts.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:KaziWatts.Views"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarIsVisible="False"
+       Shell.BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
+
+    <!-- Pas de barre native : la barre du bas (BottomNav) est dessinée par l'application, comme sur les maquettes -->
+    <ShellContent Route="splash" ContentTemplate="{DataTemplate views:SplashPage}" />
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" />
+    <ShellContent Route="home" ContentTemplate="{DataTemplate views:HomePage}" />
+    <ShellContent Route="payments" ContentTemplate="{DataTemplate views:PaymentsPage}" />
+    <ShellContent Route="roommates" ContentTemplate="{DataTemplate views:RoommatesPage}" />
+    <ShellContent Route="profile" ContentTemplate="{DataTemplate views:ProfilePage}" />
+</Shell>
