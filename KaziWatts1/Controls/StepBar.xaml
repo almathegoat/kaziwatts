@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KaziWatts.Controls.StepBar">
+    <!-- Barre d'étapes : 3 segments de 4 de haut (écart 8) + libellés Inter Medium 9,7 -->
+    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="6.5">
+
+        <!-- Segments : fond neutre + couche bleue visible si l'étape est atteinte -->
+        <Grid Grid.Column="0" HeightRequest="4">
+            <Border StrokeThickness="0" StrokeShape="RoundRectangle 2"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+            <Border x:Name="Seg1On" StrokeThickness="0" StrokeShape="RoundRectangle 2" BackgroundColor="{StaticResource Primary}" />
+        </Grid>
+        <Grid Grid.Column="1" HeightRequest="4">
+            <Border StrokeThickness="0" StrokeShape="RoundRectangle 2"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+            <Border x:Name="Seg2On" StrokeThickness="0" StrokeShape="RoundRectangle 2" BackgroundColor="{StaticResource Primary}" />
+        </Grid>
+        <Grid Grid.Column="2" HeightRequest="4">
+            <Border StrokeThickness="0" StrokeShape="RoundRectangle 2"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}" />
+            <Border x:Name="Seg3On" StrokeThickness="0" StrokeShape="RoundRectangle 2" BackgroundColor="{StaticResource Primary}" />
+        </Grid>
+
+        <!-- Libellés : gris (étape à venir) ou bleu (étape atteinte) -->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Label x:Name="Lab1Off" Text="Colocation" FontFamily="InterMedium" FontSize="9.7"
+                   TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
+            <Label x:Name="Lab1On" Text="Colocation" FontFamily="InterMedium" FontSize="9.7"
+                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Label x:Name="Lab2Off" Text="Compteur" FontFamily="InterMedium" FontSize="9.7"
+                   TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
+            <Label x:Name="Lab2On" Text="Compteur" FontFamily="InterMedium" FontSize="9.7"
+                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Label x:Name="Lab3Off" Text="Terminé" FontFamily="InterMedium" FontSize="9.7"
+                   TextColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
+            <Label x:Name="Lab3On" Text="Terminé" FontFamily="InterMedium" FontSize="9.7"
+                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+        </Grid>
+    </Grid>
+</ContentView>

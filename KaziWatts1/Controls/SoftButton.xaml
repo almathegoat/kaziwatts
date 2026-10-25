@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Controls.SoftButton">
+    <!-- Bouton secondaire : fond bleu doux, texte bleu Inter SemiBold 14 + icône 19, hauteur 54, rayon 14 -->
+    <Border HeightRequest="54" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 14"
+            BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+            <Label x:Name="TextLabel" FontFamily="InterSemiBold" FontSize="14" VerticalOptions="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+            <ctl:Icon x:Name="Glyph" Size="19" Thickness="1.5" VerticalOptions="Center"
+                      Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+        </HorizontalStackLayout>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapped" />
+        </Border.GestureRecognizers>
+    </Border>
+</ContentView>

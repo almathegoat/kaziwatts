@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="KaziWatts.Controls.BrandHeader">
+    <!-- Logo de la maquette : carré arrondi à contour cyan, maison bleue, éclair orange + nom « KaziWatt » -->
+    <HorizontalStackLayout Spacing="14" VerticalOptions="Center">
+        <Border WidthRequest="58" HeightRequest="58" Padding="0" StrokeThickness="3.5"
+                StrokeShape="RoundRectangle 17" BackgroundColor="Transparent" VerticalOptions="Center">
+            <Border.Stroke>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#2BC0FF" Offset="0.0" />
+                    <GradientStop Color="#1E86F5" Offset="1.0" />
+                </LinearGradientBrush>
+            </Border.Stroke>
+            <AbsoluteLayout>
+                <!-- maison : toit + murs (zone 38 x 32) -->
+                <shapes:Path Data="M0,14 L19,0 L38,14 M5,11 L5,32 M33,11 L33,22"
+                             Stroke="{StaticResource Primary}" StrokeThickness="3.2"
+                             StrokeLineJoin="Round" StrokeLineCap="Round" Aspect="Uniform"
+                             AbsoluteLayout.LayoutBounds="8,10,38,32" AbsoluteLayout.LayoutFlags="None" />
+                <!-- éclair (zone 11 x 24) -->
+                <shapes:Path Data="M7,0 L0,13 L5,13 L3,24 L11,9 L6,9 Z"
+                             Fill="#FFB020" Stroke="#FFB020" StrokeThickness="1"
+                             StrokeLineJoin="Round" Aspect="Uniform"
+                             AbsoluteLayout.LayoutBounds="21,20,9,19.6" AbsoluteLayout.LayoutFlags="None" />
+            </AbsoluteLayout>
+        </Border>
+        <Label VerticalOptions="Center" FontFamily="InterBold" FontSize="36">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Kazi" FontFamily="InterBold"
+                          TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                    <Span Text="Watt" FontFamily="InterBold"
+                          TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </HorizontalStackLayout>
+</ContentView>

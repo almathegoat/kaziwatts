@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KaziWatts.Controls.Avatar">
+    <!-- Pastille ronde avec initiales (Inter Bold, bleu) sur fond doux + contour -->
+    <Border x:Name="Disc" WidthRequest="42" HeightRequest="42" Padding="0" StrokeThickness="1" StrokeShape="Ellipse"
+            BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}"
+            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+        <Label x:Name="InitialsLabel" FontFamily="InterBold" FontSize="14"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+    </Border>
+</ContentView>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Controls.TextField">
+    <!-- Champ des maquettes : hauteur 49, rayon 16, contour 1, texte Inter 13,7, icône 20 à droite -->
+    <Border HeightRequest="49" Padding="14,0,14,0" StrokeThickness="1"
+            StrokeShape="RoundRectangle 14"
+            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+            <Entry x:Name="Input" FontFamily="InterRegular" FontSize="13.7"
+                   VerticalOptions="Center" MinimumHeightRequest="0" HeightRequest="40"
+                   TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}"
+                   PlaceholderColor="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                   TextChanged="OnTextChanged" />
+            <ctl:Icon x:Name="Trailing" Grid.Column="1" Size="20" Thickness="1.5"
+                      Color="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}">
+                <ctl:Icon.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnIconTapped" />
+                </ctl:Icon.GestureRecognizers>
+            </ctl:Icon>
+        </Grid>
+    </Border>
+</ContentView>

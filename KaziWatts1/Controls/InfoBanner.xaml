@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Controls.InfoBanner">
+    <!-- Bandeau d'information bleu doux : icône 20 + texte Inter 12 (interligne 18), rayon 14 -->
+    <Border Padding="13" StrokeThickness="0" StrokeShape="RoundRectangle 14"
+            BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="9">
+            <ctl:Icon x:Name="Glyph" Size="20" Thickness="1.5" VerticalOptions="Start"
+                      Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+            <Label x:Name="TextLabel" Grid.Column="1" FontFamily="InterRegular" FontSize="12" LineHeight="1.5"
+                   VerticalOptions="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+        </Grid>
+    </Border>
+</ContentView>
