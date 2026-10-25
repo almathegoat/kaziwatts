@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             x:Class="KaziWatts.Views.SplitPage"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ctl:DonutDrawable x:Key="DonutDrawable" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader x:Name="Header" Title="Répartition facture" Subtitle="" Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:SegmentedControl x:Name="ModeTabs" Items="Consommation|Présence|Parts égales" SelectedIndex="0"
+                                      Margin="0,20.5,0,0" SelectedChanged="OnModeChanged" />
+
+                <Border HeightRequest="292" Margin="0,16,0,0" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <AbsoluteLayout>
+                        <Label x:Name="TotalCaption" Text="" Style="{StaticResource Muted}" FontSize="12"
+                               AbsoluteLayout.LayoutBounds="17,17,AutoSize,AutoSize" />
+                        <Label x:Name="TotalAmount" Text="0" FontFamily="InterBold" FontSize="36" AbsoluteLayout.LayoutBounds="16,39.5,AutoSize,AutoSize" />
+                        <Label Text="FCFA" Style="{StaticResource Muted}" FontSize="12.5" AbsoluteLayout.LayoutBounds="147,62.3,AutoSize,AutoSize" />
+
+                        <GraphicsView x:Name="Donut" AbsoluteLayout.LayoutBounds="85.5,101,169,169" />
+
+                        <Label x:Name="DonutKwh" Text="0" FontFamily="InterRegular" FontSize="36" HorizontalTextAlignment="Center"
+                               AbsoluteLayout.LayoutBounds="0,154.3,340,AutoSize" />
+                        <Label Text="kWh consommés" Style="{StaticResource Muted}" FontSize="12" HorizontalTextAlignment="Center"
+                               AbsoluteLayout.LayoutBounds="0,198.7,340,AutoSize" />
+                    </AbsoluteLayout>
+                </Border>
+
+                <VerticalStackLayout x:Name="Rows" Margin="0,6,0,0" Spacing="0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border HeightRequest="61" Margin="0,10,0,0" Padding="13,0,14,0" StrokeThickness="1" StrokeShape="RoundRectangle 18"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12" VerticalOptions="Center">
+                                    <shapes:Ellipse WidthRequest="9" HeightRequest="9" Fill="{Binding Dot}" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" FontFamily="InterSemiBold" FontSize="13" />
+                                        <Label Text="{Binding PercentText}" Style="{StaticResource Muted}" FontSize="11" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="{Binding AmountText}" FontFamily="InterSemiBold" FontSize="14" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <ctl:SoftButton Text="Saisir les données du mois" IconName="plus" Margin="0,16,0,0" Clicked="OnInputs" />
+
+                <ctl:SoftButton Text="Voir le détail complet" IconName="arrow-up-right" Margin="0,16,0,0" Clicked="OnDetail" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ctl:BottomNav Grid.Row="2" Active="home" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.RoommatesPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader x:Name="Header" Title="Colocataires" Subtitle="" BackRoute="//home" Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:SegmentedControl x:Name="Tabs" Items="Membres|Paramètres" SelectedIndex="0"
+                                      Margin="0,20.5,0,0" SelectedChanged="OnTabChanged" />
+
+                <!-- Votre foyer -->
+                <Border HeightRequest="76" Margin="0,16,0,0" Padding="17" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <Grid ColumnDefinitions="40,*,Auto" ColumnSpacing="12" VerticalOptions="Center">
+                        <ctl:Icon Name="home" Size="22" Thickness="1.5"
+                                  Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                            <Label Text="Votre foyer" FontFamily="InterSemiBold" FontSize="13" />
+                            <Label x:Name="HomeSub" Text="" Style="{StaticResource Muted}" FontSize="11" />
+                        </VerticalStackLayout>
+                        <Label x:Name="CodeLabel" Grid.Column="2" Text="" FontFamily="InterRegular" FontSize="12.5" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <Grid ColumnDefinitions="*,Auto" Margin="0,15,0,0">
+                    <Label x:Name="MembersTitle" Text="Membres de la colocation" FontFamily="InterRegular" FontSize="13" />
+                    <Label Grid.Column="1" Text="Gérer" FontFamily="InterSemiBold" FontSize="11"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}">
+                        <Label.GestureRecognizers><TapGestureRecognizer Tapped="OnManage" /></Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <VerticalStackLayout x:Name="ItemsHost" Margin="0,5,0,0" Spacing="0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border HeightRequest="74" Margin="0,12,0,0" Padding="14,0,14,0" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                    <ctl:Avatar Initials="{Binding Initials}" Diameter="42" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                        <Label Text="{Binding DisplayName}" FontFamily="InterRegular" FontSize="13" LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding PresenceText}" Style="{StaticResource Muted}" FontSize="12" />
+                                    </VerticalStackLayout>
+                                    <Border Grid.Column="2" HeightRequest="20" Padding="9,0" StrokeThickness="0" StrokeShape="RoundRectangle 10" VerticalOptions="Center"
+                                            BackgroundColor="{Binding BadgeBack}">
+                                        <Label Text="{Binding RoleText}" FontFamily="InterSemiBold" FontSize="10" VerticalOptions="Center" TextColor="{Binding BadgeText}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <ctl:SoftButton Text="Inviter un colocataire" IconName="user-plus" Margin="0,16,0,0" Clicked="OnInvite" />
+
+                <ctl:InfoBanner x:Name="ModeBanner" IconName="pie" Margin="0,16,0,0"
+                                Text="" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ctl:BottomNav Grid.Row="2" Active="roommates" />
+    </Grid>
+</ContentPage>

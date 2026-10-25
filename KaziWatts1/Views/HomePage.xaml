@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.HomePage"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ctl:RingDrawable x:Key="RingDrawable" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- En-tête : « Bonjour 👋 », cloche, sous-titre -->
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,Auto" Padding="24,0,24,0" HeightRequest="44" Margin="0,4,0,0">
+                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                    <Label x:Name="Greeting" Text="Bonjour" FontFamily="InterBold" FontSize="22" VerticalOptions="Center" />
+                    <Label Text="👋" FontSize="20" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <ctl:Icon Grid.Column="1" Name="bell" Size="24" Thickness="1.5" VerticalOptions="Center"
+                          Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}">
+                    <ctl:Icon.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnReminders" />
+                    </ctl:Icon.GestureRecognizers>
+                </ctl:Icon>
+            </Grid>
+            <Label x:Name="SubLabel" Text="" Style="{StaticResource Muted}" FontSize="12" Margin="24,-3,24,0" />
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <!-- ===== Carte « Crédit restant » (dégradé bleu) ===== -->
+                <Border HeightRequest="216" Margin="0,20.5,0,0" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 22">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="{StaticResource HeroTop}" Offset="0.0" />
+                            <GradientStop Color="{StaticResource HeroBottom}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <Label x:Name="CardTitle" Text="CRÉDIT RESTANT" FontFamily="InterSemiBold" FontSize="11" TextColor="{StaticResource HeroText}"
+                               HorizontalOptions="Start" VerticalOptions="Start" Margin="20,19.5,0,0" />
+                        <Label x:Name="TypeLabel" Text="" FontFamily="InterSemiBold" FontSize="11" TextColor="{StaticResource HeroCyan}"
+                               HorizontalOptions="End" VerticalOptions="Start" Margin="0,19.5,22,0" />
+
+                        <!-- Jauge -->
+                        <GraphicsView x:Name="Ring" WidthRequest="144" HeightRequest="144"
+                                      HorizontalOptions="Start" VerticalOptions="Start" Margin="20,41,0,0" />
+                        <Grid WidthRequest="144" HeightRequest="144" HorizontalOptions="Start" VerticalOptions="Start" Margin="20,41,0,0"
+                              InputTransparent="True">
+                            <ctl:Icon Name="zap" Size="20" Thickness="1.4" Color="{StaticResource HeroCyan}"
+                                      HorizontalOptions="Center" VerticalOptions="Start" Margin="0,31,0,0" />
+                            <Label x:Name="CreditLabel" Text="–" FontFamily="InterBold" FontSize="33" TextColor="White"
+                                   HorizontalOptions="Center" VerticalOptions="Start" Margin="0,54,0,0" />
+                            <Label Text="kWh" FontFamily="InterRegular" FontSize="13" TextColor="{StaticResource HeroText}"
+                                   HorizontalOptions="Center" VerticalOptions="Start" Margin="0,97,0,0" />
+                        </Grid>
+
+                        <!-- Colonne de droite -->
+                        <VerticalStackLayout WidthRequest="142" HorizontalOptions="Start" VerticalOptions="Start" Margin="181,68,0,0" Spacing="0">
+                            <Label x:Name="CreditFcfaLabel" Text="" FontFamily="InterBold" FontSize="19" TextColor="White" />
+                            <Label x:Name="AutonomyLabel" Text="" FontFamily="InterRegular" FontSize="12"
+                                   TextColor="{StaticResource HeroText}" Margin="0,12,0,0" />
+                            <Grid HeightRequest="4" Margin="0,11.5,0,0">
+                                <Border StrokeThickness="0" StrokeShape="RoundRectangle 2" BackgroundColor="{StaticResource HeroTrack}" />
+                                <Border StrokeThickness="0" StrokeShape="RoundRectangle 2" BackgroundColor="{StaticResource HeroCyan}"
+                                        x:Name="GaugeBar" WidthRequest="0" HorizontalOptions="Start" />
+                            </Grid>
+                            <Label x:Name="ThresholdLabel" Text="" FontFamily="InterRegular" FontSize="10"
+                                   TextColor="{StaticResource HeroText}" Margin="0,8.5,0,0" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- ===== Actions rapides ===== -->
+                <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="9" Margin="0,16,0,0">
+                    <Border HeightRequest="67" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                        <VerticalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <ctl:Icon Name="scan-line" Size="22" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Text="Relevé" FontFamily="InterSemiBold" FontSize="11.5" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnReading" /></Border.GestureRecognizers>
+                    </Border>
+                    <Border Grid.Column="1" HeightRequest="67" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                        <VerticalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <ctl:Icon Name="pie" Size="22" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Text="Répartir" FontFamily="InterSemiBold" FontSize="11.5" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnSplit" /></Border.GestureRecognizers>
+                    </Border>
+                    <Border Grid.Column="2" HeightRequest="67" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                        <VerticalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <ctl:Icon Name="zap" Size="22" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Text="Recharger" FontFamily="InterSemiBold" FontSize="11.5" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnRecharge" /></Border.GestureRecognizers>
+                    </Border>
+                    <Border Grid.Column="3" HeightRequest="67" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 18"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                            Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                        <VerticalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
+                            <ctl:Icon Name="bell" Size="22" Thickness="1.5" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                            <Label Text="Rappels" FontFamily="InterSemiBold" FontSize="11.5" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnReminders" /></Border.GestureRecognizers>
+                    </Border>
+                </Grid>
+
+                <!-- ===== Dernière conso ===== -->
+                <Border HeightRequest="142" Margin="0,16,0,0" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <AbsoluteLayout>
+                        <Label Text="Dernière conso" FontFamily="InterRegular" FontSize="12" AbsoluteLayout.LayoutBounds="17,16.6,AutoSize,AutoSize" />
+                        <Label x:Name="ConsoPeriod" Text="" Style="{StaticResource Muted}" FontSize="10" HorizontalTextAlignment="End"
+                               AbsoluteLayout.LayoutBounds="222,18.3,100,AutoSize" />
+                        <Label x:Name="ConsoKwh" Text="–" FontFamily="InterBold" FontSize="24" AbsoluteLayout.LayoutBounds="17,38.2,AutoSize,AutoSize" />
+                        <Label x:Name="ConsoFcfa" Text="" Style="{StaticResource Muted}" FontSize="12" AbsoluteLayout.LayoutBounds="17,80.6,AutoSize,AutoSize" />
+
+                        <!-- Mini histogramme : 7 barres de 12,4, écart 5,6 -->
+                        <Grid ColumnDefinitions="12.4,12.4,12.4,12.4,12.4,12.4,12.4" ColumnSpacing="5.6" HeightRequest="56"
+                              AbsoluteLayout.LayoutBounds="203,43.8,120.4,56">
+                            <Border x:Name="Bar0" Grid.Column="0" HeightRequest="25" VerticalOptions="End" StrokeThickness="0" StrokeShape="RoundRectangle 4" BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}" />
+                            <Border x:Name="Bar1" Grid.Column="1" HeightRequest="33" VerticalOptions="End" StrokeThickness="0" StrokeShape="RoundRectangle 4" BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}" />
+                            <Border x:Name="Bar2" Grid.Column="2" HeightRequest="20.5" VerticalOptions="End" StrokeThickness="0" StrokeShape="RoundRectangle 4" BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}" />
+                            <Border x:Name="Bar3" Grid.Column="3" HeightRequest="42.5" VerticalOptions="End" StrokeThickness="0" StrokeShape="RoundRectangle 4" BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}" />
+                            <Border x:Name="Bar4" Grid.Column="4" HeightRequest="38" VerticalOptions="End" StrokeThickness="0" StrokeShape="RoundRectangle 4" BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}" />
+                            <Border x:Name="Bar5" Grid.Column="5" HeightRequest="54.4" VerticalOptions="End" StrokeThickness="0" StrokeShape="RoundRectangle 4" BackgroundColor="{StaticResource Primary}" />
+                            <Border x:Name="Bar6" Grid.Column="6" HeightRequest="43.6" VerticalOptions="End" StrokeThickness="0" StrokeShape="RoundRectangle 4" BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}" />
+                        </Grid>
+
+                        <Label x:Name="SharesLabel" Text="" Style="{StaticResource Muted}" FontSize="10.5" LineBreakMode="TailTruncation" AbsoluteLayout.LayoutBounds="17,112.7,306,AutoSize" />
+                    </AbsoluteLayout>
+                </Border>
+
+                <!-- ===== Dernière recharge ===== -->
+                <Grid x:Name="RechargeRow" IsVisible="False" ColumnDefinitions="40,*,Auto" ColumnSpacing="12" Margin="0,16,0,0" HeightRequest="40">
+                    <Border WidthRequest="40" HeightRequest="40" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 14"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                        <ctl:Icon Name="arrow-down-left" Size="22" Thickness="1.5" Color="{StaticResource Success}" />
+                    </Border>
+                    <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                        <Label Text="Dernière recharge" FontFamily="InterSemiBold" FontSize="13" />
+                        <Label x:Name="RechargeWho" Text="" Style="{StaticResource Muted}" FontSize="11" />
+                    </VerticalStackLayout>
+                    <Label x:Name="RechargeAmount" Grid.Column="2" Text="" FontFamily="InterSemiBold" FontSize="12.5"
+                           TextColor="{StaticResource Success}" VerticalOptions="Center" Margin="0,0,3,0" />
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <ctl:BottomNav Grid.Row="2" Active="home" />
+    </Grid>
+</ContentPage>
