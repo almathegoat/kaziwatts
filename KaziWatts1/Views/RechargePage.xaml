@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.RechargePage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Recharger / Payer" Subtitle="Rechargez votre compteur en toute sérénité." Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:SegmentedControl Items="1. Montant|2. Qui paie ?|3. Paiement" SelectedIndex="0" Margin="0,20.5,0,0" />
+
+                <Label Text="Montant à recharger (FCFA)" FontFamily="InterSemiBold" FontSize="14" Margin="0,36,0,0" />
+
+                <!-- Montant : cadre bleu de 2 -->
+                <Border HeightRequest="84" Margin="0,16,0,0" Padding="0" StrokeThickness="2" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{StaticResource Primary}">
+                    <HorizontalStackLayout Spacing="11" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label x:Name="AmountLabel" Text="15 000" FontFamily="InterRegular" FontSize="38" VerticalOptions="Center" />
+                        <Label Text="FCFA" Style="{StaticResource Muted}" FontSize="12.5" VerticalOptions="End" Margin="0,0,0,13" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <ctl:SegmentedControl x:Name="Amounts" Items="5 000|10 000|15 000|20 000" SelectedIndex="2"
+                                      Margin="0,14,0,0" SelectedChanged="OnAmountChanged" />
+
+                <!-- Équivalence estimée -->
+                <Border HeightRequest="128" Margin="0,24,0,0" Padding="0" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <AbsoluteLayout>
+                        <Label Text="Équivalence estimée" Style="{StaticResource Muted}" FontSize="12"
+                               AbsoluteLayout.LayoutBounds="17,15,AutoSize,AutoSize" />
+                        <Label Text="≈" FontFamily="InterBold" FontSize="38" AbsoluteLayout.LayoutBounds="16,38,AutoSize,AutoSize" />
+                        <Label x:Name="KwhLabel" Text="100" FontFamily="InterBold" FontSize="38" AbsoluteLayout.LayoutBounds="51,38,AutoSize,AutoSize" />
+                        <Label x:Name="KwhUnit" Text="kWh" Style="{StaticResource Muted}" FontSize="14" AbsoluteLayout.LayoutBounds="124,62,AutoSize,AutoSize" />
+                        <Label x:Name="TariffLabel" Text="" Style="{StaticResource Muted}" FontSize="11"
+                               AbsoluteLayout.LayoutBounds="17,96,AutoSize,AutoSize" />
+                    </AbsoluteLayout>
+                </Border>
+
+                <Label Text="Moyen de paiement" FontFamily="InterSemiBold" FontSize="13" Margin="0,17,0,0" />
+
+                <Border HeightRequest="76" Margin="0,18,0,0" Padding="17" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <Grid ColumnDefinitions="40,*,Auto" ColumnSpacing="12" VerticalOptions="Center">
+                        <Border WidthRequest="40" HeightRequest="40" Padding="0" StrokeThickness="0" StrokeShape="RoundRectangle 12"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}">
+                            <ctl:Icon Name="smartphone" Size="22" Thickness="1.5"
+                                      Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                            <Label Text="Mobile Money" FontFamily="InterSemiBold" FontSize="13" />
+                            <Label Text="MTN MoMo / Orange Money" Style="{StaticResource Muted}" FontSize="11" />
+                        </VerticalStackLayout>
+                        <ctl:Icon Grid.Column="2" Name="check" Size="14" Thickness="2"
+                                  Color="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+                    </Grid>
+                </Border>
+
+                <ctl:InfoBanner x:Name="Banner" IconName="shield-check" Margin="0,16,0,0"
+                                Text="La recharge sera ajoutée au compteur KZW-2026-001 et à votre historique." />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Padding="24,8,24,28">
+            <ctl:ArrowButton Text="Continuer" IconName="arrow" Clicked="OnContinue" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

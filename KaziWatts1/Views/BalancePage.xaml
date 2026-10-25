@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.BalancePage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Solde par personne" Subtitle="Les avances et les dettes du foyer." Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:SegmentedControl x:Name="Tabs" Items="Solde|Dettes|Historique" SelectedIndex="0"
+                                      Margin="0,20.5,0,0" SelectedChanged="OnTabChanged" />
+
+                <VerticalStackLayout x:Name="ItemsHost" Spacing="0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border HeightRequest="125" Margin="0,14,0,0" Padding="17" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                                <VerticalStackLayout Spacing="13">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                        <ctl:Avatar Initials="{Binding Initials}" Diameter="42" />
+                                        <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                            <Label Text="{Binding DisplayName}" FontFamily="InterRegular" FontSize="14" LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding SubText}" Style="{StaticResource Muted}" FontSize="12" />
+                                        </VerticalStackLayout>
+                                        <Label Grid.Column="2" Text="{Binding Tag}" FontFamily="InterBold" FontSize="11" VerticalOptions="Start" Margin="0,4,0,0"
+                                               TextColor="{Binding StatusColor}" />
+                                    </Grid>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Text="{Binding AmountText}" FontFamily="InterRegular" FontSize="28" TextColor="{Binding StatusColor}" />
+                                        <Label Grid.Column="1" Text="FCFA" Style="{StaticResource Muted}" FontSize="12" VerticalOptions="End" Margin="0,0,0,6" />
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+
+                <ctl:InfoBanner x:Name="Banner" IconName="scale" Margin="0,16,0,0"
+                                Text="" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="0">
+            <ctl:SoftButton Text="Détails des transactions" IconName="arrow-up-right" Margin="24,8,24,0" Clicked="OnDetails" />
+            <ctl:BottomNav Active="payments" Margin="0,0,0,0" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

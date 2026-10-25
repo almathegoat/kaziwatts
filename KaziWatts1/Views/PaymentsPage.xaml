@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.PaymentsPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader Title="Historique paiements" Subtitle="Toutes les contributions, au même endroit."
+                        BackRoute="//home" Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:SegmentedControl x:Name="Filters" Items="Tous|Mobile Money|Espèces" SelectedIndex="0"
+                                      Margin="0,20.5,0,0" SelectedChanged="OnFilterChanged" />
+
+                <Grid ColumnDefinitions="*,Auto" Margin="0,16,0,0">
+                    <Label x:Name="PeriodLabel" Text="Tous les paiements" FontFamily="InterRegular" FontSize="13" />
+                    <Label x:Name="CountLabel" Grid.Column="1" Text="" Style="{StaticResource Muted}" FontSize="12" />
+                </Grid>
+
+                <VerticalStackLayout x:Name="ItemsHost" Margin="0,3,0,0" Spacing="0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Border HeightRequest="81" Margin="0,12,0,0" Padding="14,0,14,0" StrokeThickness="1" StrokeShape="RoundRectangle 22"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="11">
+                                    <ctl:Avatar Initials="{Binding Initials}" Diameter="38" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                        <Label Text="{Binding NameText}" FontFamily="InterRegular" FontSize="14" LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding DateText}" Style="{StaticResource Muted}" FontSize="11" />
+                                        <Label Text="{Binding MethodText}" FontFamily="InterRegular" FontSize="11" LineBreakMode="TailTruncation"
+                                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="2" Spacing="3" VerticalOptions="Center" HorizontalOptions="End">
+                                        <Label Text="{Binding AmountText}" FontFamily="InterBold" FontSize="17" HorizontalTextAlignment="End"
+                                               TextColor="{Binding AmountColor}" />
+                                        <Label Text="FCFA" Style="{StaticResource Muted}" FontSize="11" HorizontalTextAlignment="End" />
+                                        <Label Text="{Binding StatusText}" FontFamily="InterRegular" FontSize="11" HorizontalTextAlignment="End"
+                                               TextColor="{Binding StatusColor}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                                <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnCardTapped" /></Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <Label x:Name="EmptyLabel" IsVisible="False" Text="Aucun paiement pour ce filtre." Style="{StaticResource Muted}" FontSize="12.5"
+                       HorizontalTextAlignment="Center" Margin="0,30,0,0" /></VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="0">
+            <ctl:SoftButton Text="Filtrer par période" IconName="sliders" Margin="24,8,24,20" Clicked="OnFilterPeriod" />
+            <ctl:BottomNav Active="payments" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

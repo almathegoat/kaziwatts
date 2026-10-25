@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ctl="clr-namespace:KaziWatts.Controls"
+             x:Class="KaziWatts.Views.RecordPaymentPage"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <ctl:PageHeader x:Name="Header" Title="Enregistrer paiement" Subtitle="" Margin="0,4,0,0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="24,0,24,16" Spacing="0">
+
+                <ctl:SegmentedControl x:Name="KindTabs" Items="Recharge|Remboursement" SelectedIndex="0" Margin="0,20.5,0,0" SelectedChanged="OnKindChanged" />
+
+                <Label x:Name="PersonCaption" Text="Qui a payé ?" FontFamily="InterSemiBold" FontSize="12" Margin="0,16,0,0" />
+                <Border HeightRequest="62" Margin="0,8.5,0,0" Padding="13,0,14,0" StrokeThickness="1" StrokeShape="RoundRectangle 18"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource StrokeLight}, Dark={StaticResource StrokeDark}}">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                        <ctl:Avatar x:Name="PersonAvatar" Initials="CM" Diameter="34" VerticalOptions="Center" />
+                        <Label x:Name="PersonName" Grid.Column="1" Text="Carine Mbarga" FontFamily="InterSemiBold" FontSize="14" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="Changer" FontFamily="InterSemiBold" FontSize="11" VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}">
+                            <Label.GestureRecognizers><TapGestureRecognizer Tapped="OnChangePerson" /></Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Border>
+
+                <Label Text="Montant (FCFA)" FontFamily="InterSemiBold" FontSize="12" Margin="0,15,0,0" />
+                <ctl:TextField x:Name="AmountField" Placeholder="11 088" KeyboardType="Numeric" Margin="0,7.5,0,0" />
+
+                <Label Text="Mode de paiement" FontFamily="InterSemiBold" FontSize="12" Margin="0,16.5,0,0" />
+                <ctl:SegmentedControl x:Name="Modes" Items="MTN MoMo|Orange Money|Espèces" SelectedIndex="0" Margin="0,17.5,0,0" />
+
+                <Label Text="Référence de transaction" FontFamily="InterSemiBold" FontSize="12" Margin="0,16,0,0" />
+                <ctl:TextField x:Name="RefField" Placeholder="TX123456789" IconName="hash" Margin="0,7.5,0,0" />
+
+                <Label Text="Ajouter une preuve (optionnel)" FontFamily="InterSemiBold" FontSize="12" Margin="0,17,0,0" />
+
+                <!-- Zone de dépôt en pointillés -->
+                <Border HeightRequest="98" Margin="0,8,0,0" Padding="0" StrokeThickness="1" StrokeDashArray="4,3" StrokeShape="RoundRectangle 18"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource DashLight}, Dark={StaticResource DashDark}}">
+                    <VerticalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Center">
+                        <ctl:Icon Name="image-plus" Size="24" Thickness="1.4"
+                                  Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        <Label x:Name="ProofLabel" Text="Choisir une capture ou une photo" FontFamily="InterRegular" FontSize="13" HorizontalOptions="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource LinkDark}}" />
+                        <Label Text="JPG, PNG ou PDF · 5 Mo maximum" Style="{StaticResource Muted}" FontSize="11" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnPickProof" /></Border.GestureRecognizers>
+                </Border>
+
+                <Label x:Name="ErrorLabel" IsVisible="False" FontSize="12" Margin="0,10,0,0" TextColor="{StaticResource Danger}" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="2" Padding="24,8,24,28">
+            <ctl:ArrowButton Text="Enregistrer le paiement" IconName="check" Clicked="OnSave" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
