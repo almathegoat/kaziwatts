@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!-- Palette mesurée directement dans le PDF des maquettes (valeurs exactes) -->
+    <Color x:Key="Primary">#245CFF</Color>
+    <Color x:Key="PrimarySoftLight">#EAF0FF</Color>
+    <Color x:Key="PrimarySoftDark">#1B2D53</Color>
+    <Color x:Key="LinkDark">#83A7FF</Color>
+    <Color x:Key="BgLight">#F4F7FF</Color>
+    <Color x:Key="BgDark">#080F21</Color>
+    <Color x:Key="CardLight">#FFFFFF</Color>
+    <Color x:Key="CardDark">#121E36</Color>
+    <Color x:Key="StrokeLight">#E2E9F5</Color>
+    <Color x:Key="StrokeDark">#263550</Color>
+    <Color x:Key="TextLight">#101D3B</Color>
+    <Color x:Key="TextDark">#F3F6FF</Color>
+    <Color x:Key="MutedLight">#6C7993</Color>
+    <Color x:Key="MutedDark">#9BAAC5</Color>
+    <Color x:Key="Success">#139772</Color>
+    <Color x:Key="SuccessDark">#43DDB2</Color>
+    <Color x:Key="SuccessSoftLight">#DDF7EF</Color>
+    <Color x:Key="SuccessSoftDark">#103B37</Color>
+    <Color x:Key="DangerSoftLight">#FFF0F3</Color>
+    <Color x:Key="DangerSoftDark">#351C30</Color>
+    <Color x:Key="DangerStrokeLight">#F7D2DC</Color>
+    <Color x:Key="DangerStrokeDark">#653048</Color>
+    <Color x:Key="HeroTop">#245CFF</Color>
+    <Color x:Key="HeroBottom">#08309A</Color>
+    <Color x:Key="HeroTrack">#3052B4</Color>
+    <Color x:Key="HeroCyan">#62DDFF</Color>
+    <Color x:Key="HeroText">#D6E3FF</Color>
+    <Color x:Key="DonutLavender">#909BFF</Color>
+    <Color x:Key="DonutYellow">#FFC94D</Color>
+    <Color x:Key="DonutYellowDot">#D99518</Color>
+    <Color x:Key="Warning">#D99518</Color>
+    <Color x:Key="Danger">#E4506A</Color>
+
+    <Color x:Key="DashLight">#C3D3F5</Color>
+    <Color x:Key="DashDark">#34476E</Color>
+
+    <!-- Écran 1 : photo -->
+    <Color x:Key="PhotoSubtitle">#D7E6FF</Color>
+    <Color x:Key="PhotoOverlayTop">#590A1E5C</Color>
+    <Color x:Key="PhotoOverlay20">#33123388</Color>
+    <Color x:Key="PhotoOverlay30">#4D123388</Color>
+    <Color x:Key="PhotoOverlay60">#99123388</Color>
+    <Color x:Key="PhotoOverlay75">#BF123388</Color>
+    <Color x:Key="PhotoOverlay100">#123388</Color>
+</ResourceDictionary>
